@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Mastery: The Doctor</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="assets/doctor-icon.svg">
+    
+    <!-- Star Trek Lower Decks inspired favicon and theme -->
+    <meta name="theme-color" content="#1e3c72">
+    <meta name="description" content="Learn Stable Diffusion with The Doctor (EMH) - An AI education platform">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="js/app.js" as="script">
+    
+    <!-- Security -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-container">
+            <div class="doctor-avatar">⚕️</div>
+            <div class="loading-text">
+                <h2>Initializing The Doctor...</h2>
+                <p>Emergency Medical Hologram Educational System</p>
+                <div class="loading-bar">
+                    <div class="loading-progress"></div>
+                </div>
+                <div class="loading-status">Activating holographic matrix...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application Container -->
+    <div id="app" class="app-container" style="display: none;">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="doctor-logo">⚕️</div>
+                    <div class="app-title">
+                        <h1>AI Mastery: The Doctor</h1>
+                        <span class="subtitle">Emergency Medical Hologram Educational System</span>
+                    </div>
+                </div>
+                
+                <div class="header-controls">
+                    <button id="statusButton" class="control-button" title="View Status Report">
+                        📊 Status
+                    </button>
+                    <button id="settingsButton" class="control-button" title="Settings">
+                        ⚙️ Settings
+                    </button>
+                    <button id="helpButton" class="control-button" title="Help">
+                        ❓ Help
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Doctor Interface -->
+            <section class="doctor-interface">
+                <div class="doctor-avatar-large">⚕️</div>
+                <div id="doctorResponse" class="doctor-response">
+                    <div class="doctor-message">
+                        <span class="doctor-avatar">⚕️</span>
+                        <div class="message-content">Please state the nature of your educational emergency.</div>
+                    </div>
+                </div>
+                <div class="doctor-status">
+                    <div class="status-indicator"></div>
+                    <span id="doctorStatus">Operational</span>
+                </div>
+            </section>
+
+            <!-- Dashboard -->
+            <section class="dashboard-section">
+                <div class="dashboard-grid">
+                    
+                    <!-- Learning Progress Card -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <span class="card-icon">📚</span>
+                            <h3 class="card-title">Learning Progress</h3>
+                        </div>
+                        <div class="progress-overview">
+                            <div class="progress-stat">
+                                <span id="completedLessons" class="stat-value">0</span>
+                                <span class="stat-label">Lessons Completed</span>
+                            </div>
+                            <div class="progress-stat">
+                                <span id="averageScore" class="stat-value">0.0</span>
+                                <span class="stat-label">Average Score</span>
+                            </div>
+                            <div class="progress-stat">
+                                <span id="completionRate" class="stat-value">0%</span>
+                                <span class="stat-label">Completion Rate</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Phase Progress -->
+                        <div class="phase-progress">
+                            <div class="phase-header">
+                                <span class="phase-title">Phase 1: Foundations</span>
+                                <span id="phase1Count" class="phase-counter">0/15</span>
+                            </div>
+                            <div id="phase1Progress" class="progress-bar">
+                                <div class="progress-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="phase-progress">
+                            <div class="phase-header">
+                                <span class="phase-title">Phase 2: Intermediate Tools</span>
+                                <span id="phase2Count" class="phase-counter">0/15</span>
+                            </div>
+                            <div id="phase2Progress" class="progress-bar">
+                                <div class="progress-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="phase-progress">
+                            <div class="phase-header">
+                                <span class="phase-title">Phase 3: Advanced Control</span>
+                                <span id="phase3Count" class="phase-counter">0/15</span>
+                            </div>
+                            <div id="phase3Progress" class="progress-bar">
+                                <div class="progress-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="phase-progress">
+                            <div class="phase-header">
+                                <span class="phase-title">Phase 4: Cutting-Edge</span>
+                                <span id="phase4Count" class="phase-counter">0/15</span>
+                            </div>
+                            <div id="phase4Progress" class="progress-bar">
+                                <div class="progress-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Card -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <span class="card-icon">🚀</span>
+                            <h3 class="card-title">Quick Actions</h3>
+                        </div>
+                        <div class="quick-actions">
+                            <button id="startLearningButton" class="btn btn-primary btn-large">
+                                🎓 Start Learning
+                            </button>
+                            <button id="nextLessonButton" class="btn btn-secondary">
+                                ▶️ Continue Next Lesson
+                            </button>
+                            <button class="btn btn-secondary" onclick="window.AIMasteryApp?.showStatusModal()">
+                                📊 View Progress Report
+                            </button>
+                            <button class="btn btn-secondary" onclick="window.AIMasteryApp?.showHelpModal()">
+                                📖 Study Guide
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lesson Section (Initially Hidden) -->
+            <section id="lessonSection" class="lesson-section" style="display: none;">
+                <div class="lesson-header">
+                    <div class="lesson-title-group">
+                        <div id="lessonNumber" class="lesson-number">Lesson 1</div>
+                        <h2 id="lessonTitle" class="lesson-title">Introduction to AI Image Generation</h2>
+                        <div class="lesson-meta">
+                            <span id="lessonPhase" class="lesson-badge phase">Foundations</span>
+                            <span id="lessonDifficulty" class="lesson-badge difficulty">Beginner</span>
+                        </div>
+                    </div>
+                    <div class="lesson-controls">
+                        <button id="hintButton" class="btn btn-secondary btn-small">
+                            💡 Hint
+                        </button>
+                        <button id="skipButton" class="btn btn-warning btn-small">
+                            ⏭️ Skip
+                        </button>
+                        <button id="prevLessonButton" class="btn btn-secondary btn-small">
+                            ⬅️ Previous
+                        </button>
+                        <button id="nextLessonButtonTop" class="btn btn-secondary btn-small">
+                            ➡️ Next
+                        </button>
+                        <button id="closeLessonButton" class="btn btn-secondary btn-small">
+                            ✖️ Close
+                        </button>
+                    </div>
+                </div>
+
+                <div id="lessonContent" class="lesson-content">
+                    <!-- Lesson content will be loaded here -->
+                </div>
+
+                <div class="user-input-section">
+                    <label for="userAnswer" class="input-label">Your Answer:</label>
+                    <textarea 
+                        id="userAnswer" 
+                        class="user-input" 
+                        placeholder="Please provide your answer here. The Doctor expects a thorough response demonstrating your understanding of the concepts..."
+                        rows="6"
+                    ></textarea>
+                    <div class="input-actions">
+                        <div class="input-helpers">
+                            <small class="text-muted">Ctrl+Enter to submit • Auto-saved as you type</small>
+                        </div>
+                        <button id="submitAnswerButton" class="btn btn-primary">
+                            📝 Submit Answer
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Comic Section (Initially Hidden) -->
+            <section id="comicSection" class="comic-section" style="display: none;">
+                <div class="comic-header">
+                    <h3 class="comic-title">
+                        🎭 Educational Comic
+                    </h3>
+                    <button id="closeComicButton" class="btn btn-secondary btn-small">
+                        ✖️ Close
+                    </button>
+                </div>
+                
+                <div class="comic-controls">
+                    <button class="comic-control-btn" id="comicPrevPanel" title="Previous Panel">
+                        ⬅️
+                    </button>
+                    <span class="comic-panel-counter" id="comicPanelCounter">1 / 4</span>
+                    <button class="comic-control-btn" id="comicNextPanel" title="Next Panel">
+                        ➡️
+                    </button>
+                    <button class="comic-control-btn" id="comicZoomIn" title="Zoom In">
+                        🔍+
+                    </button>
+                    <button class="comic-control-btn" id="comicZoomOut" title="Zoom Out">
+                        🔍-
+                    </button>
+                    <button class="comic-control-btn" id="comicFullscreen" title="Fullscreen">
+                        🖼️
+                    </button>
+                    <button class="comic-control-btn" id="comicDownload" title="Download">
+                        💾
+                    </button>
+                </div>
+                
+                <div id="comicContent" class="comic-content">
+                    <!-- Comic content will be loaded here -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">⚙️ Configuration Settings</h2>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label for="humorSlider" class="form-label">
+                            🎭 The Doctor's Humor Level
+                        </label>
+                        <div class="range-container">
+                            <input 
+                                type="range" 
+                                id="humorSlider" 
+                                class="range-slider" 
+                                min="1" 
+                                max="10" 
+                                value="7"
+                            >
+                            <span id="humorValue" class="range-value">7</span>
+                        </div>
+                        <small class="text-muted">
+                            1-3: Professional • 4-6: Mildly Condescending • 7-9: Classic Doctor • 10: Maximum Arrogance
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-container">
+                            <div class="checkbox">
+                                <input type="checkbox" id="comicsEnabled" checked>
+                                <span class="checkbox-mark"></span>
+                            </div>
+                            <label for="comicsEnabled" class="form-label">
+                                🎨 Enable Educational Comics
+                            </label>
+                        </div>
+                        <small class="text-muted">
+                            Generate visual learning aids using AI (requires API keys)
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-container">
+                            <div class="checkbox">
+                                <input type="checkbox" id="characterRotation" checked>
+                                <span class="checkbox-mark"></span>
+                            </div>
+                            <label for="characterRotation" class="form-label">
+                                🔄 Enable Character Rotation
+                            </label>
+                        </div>
+                        <small class="text-muted">
+                            Rotate additional Star Trek characters in lessons and comics
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preferredExamples" class="form-label">
+                            💭 Preferred Learning Examples
+                        </label>
+                        <input 
+                            type="text" 
+                            id="preferredExamples" 
+                            class="form-input"
+                            placeholder="e.g., photography, art, anime, landscapes..."
+                        >
+                        <small class="text-muted">
+                            Examples that interest you (helps personalize lessons)
+                        </small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="saveSettingsButton" class="btn btn-primary">
+                    💾 Save Settings
+                </button>
+                <button class="btn btn-secondary modal-close">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Modal -->
+    <div id="statusModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">📊 System Status Report</h2>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="status-actions">
+                    <button id="refreshStatusButton" class="btn btn-secondary btn-small">
+                        🔄 Refresh Status
+                    </button>
+                </div>
+                <div id="statusContent" class="status-content">
+                    <!-- Status information will be loaded here -->
+                    <div class="loading">Loading system status...</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">❓ User Manual</h2>
+                <button class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="help-content">
+                    <h3>🎯 Getting Started</h3>
+                    <p>Welcome to AI Mastery: The Doctor! This educational system will guide you through learning Stable Diffusion and AI image generation with The Doctor's expertise.</p>
+                    
+                    <h3>📚 How to Use</h3>
+                    <ul>
+                        <li><strong>Start Learning:</strong> Click "Start Learning" to begin your educational journey</li>
+                        <li><strong>Answer Questions:</strong> Read each lesson and provide thoughtful answers</li>
+                        <li><strong>Get Feedback:</strong> The Doctor will review your answers and provide guidance</li>
+                        <li><strong>View Comics:</strong> Educational comics help visualize concepts (when enabled)</li>
+                        <li><strong>Track Progress:</strong> Monitor your advancement through the four learning phases</li>
+                    </ul>
+
+                    <h3>⌨️ Keyboard Shortcuts</h3>
+                    <ul>
+                        <li><strong>Ctrl/Cmd + N:</strong> Start Next Lesson</li>
+                        <li><strong>Ctrl/Cmd + Enter:</strong> Submit Answer</li>
+                        <li><strong>Ctrl/Cmd + H:</strong> Request Hint</li>
+                        <li><strong>S:</strong> Open Settings</li>
+                        <li><strong>H:</strong> Open Help</li>
+                        <li><strong>Space:</strong> Start Learning (when not in lesson)</li>
+                        <li><strong>Esc:</strong> Close Modals</li>
+                    </ul>
+
+                    <h3>🎭 The Doctor's Personality</h3>
+                    <p>The Doctor's humor level affects his teaching style:</p>
+                    <ul>
+                        <li><strong>1-3:</strong> Professional and straightforward</li>
+                        <li><strong>4-6:</strong> Mildly condescending but helpful</li>
+                        <li><strong>7-9:</strong> Classic Doctor wit and arrogance</li>
+                        <li><strong>10:</strong> Maximum superiority complex</li>
+                    </ul>
+
+                    <h3>🎨 Educational Comics</h3>
+                    <p>When API keys are configured, The Doctor generates visual learning aids to help explain concepts. Comics feature Star Trek characters in educational scenarios.</p>
+
+                    <h3>📈 Learning Phases</h3>
+                    <ul>
+                        <li><strong>Phase 1:</strong> Foundations (Lessons 1-15)</li>
+                        <li><strong>Phase 2:</strong> Intermediate Tools (Lessons 16-30)</li>
+                        <li><strong>Phase 3:</strong> Advanced Control (Lessons 31-45)</li>
+                        <li><strong>Phase 4:</strong> Cutting-Edge (Lessons 46-60)</li>
+                    </ul>
+
+                    <h3>⚙️ Configuration</h3>
+                    <p>Access settings to:</p>
+                    <ul>
+                        <li>Adjust The Doctor's personality</li>
+                        <li>Enable/disable educational comics</li>
+                        <li>Configure character rotation</li>
+                        <li>Set preferred learning examples</li>
+                    </ul>
+
+                    <h3>🚨 Troubleshooting</h3>
+                    <ul>
+                        <li><strong>No Comics:</strong> Comics require API keys (optional)</li>
+                        <li><strong>Slow Loading:</strong> Check your internet connection</li>
+                        <li><strong>The Doctor Offline:</strong> Application runs in simulation mode</li>
+                        <li><strong>Progress Lost:</strong> Progress is saved automatically</li>
+                    </ul>
+
+                    <h3>🖖 About Star Trek</h3>
+                    <p>This application features The Doctor (Emergency Medical Hologram) from Star Trek: Voyager. Star Trek characters and references are property of Paramount Global.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+ 
+<script src="./js/app.js"></script>
+<script src="./js/lesson-ui.js"></script>
+<script src="./js/comic-viewer.js"></script>
+<script src="./js/error-handler.js"></script>
+</body>
+</html>

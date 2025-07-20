@@ -1,0 +1,9 @@
+# Ignore Node.js dependencies (if you have them)
+node_modules/
+
+# Ignore environment variables files
+.env
+env.example
+
+# Ignore common system files
+.DS_Store

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Mastery: The Doctor - System Error</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f1e3a 0%, #1e3c72 50%, #6b46c1 100%);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .error-container {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .doctor-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        h1 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .error-message {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #87ceeb;
+            font-style: italic;
+        }
+        
+        .doctor-quote {
+            background: rgba(135, 206, 235, 0.1);
+            border-left: 4px solid #87ceeb;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .troubleshooting {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .troubleshooting h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        
+        .troubleshooting ol {
+            line-height: 1.6;
+        }
+        
+        .troubleshooting li {
+            margin-bottom: 8px;
+        }
+        
+        .retry-button {
+            background: linear-gradient(45deg, #14b8a6, #87ceeb);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 1rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .retry-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .technical-info {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #b3d9ff;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #cc0000;
+            margin-right: 8px;
+            animation: blink 1.5s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="doctor-icon">⚕️</div>
+        
+        <h1><span class="status-indicator"></span>Holographic Matrix Malfunction</h1>
+        
+        <div class="error-message">
+            The Doctor's backend systems failed to initialize properly
+        </div>
+        
+        <div class="doctor-quote">
+            <p><strong>The Doctor:</strong> "Most embarrassing! My educational subroutines are experiencing a cascade failure. This is highly irregular for a hologram of my sophistication."</p>
+        </div>
+        
+        <div class="troubleshooting">
+            <h3>🔧 Troubleshooting Steps:</h3>
+            <ol>
+                <li><strong>Restart the Application:</strong> Close completely and relaunch</li>
+                <li><strong>Check Dependencies:</strong> Run <code>npm install</code> in the project directory</li>
+                <li><strong>Verify Configuration:</strong> Ensure your <code>.env</code> file is properly configured</li>
+                <li><strong>Check Port Availability:</strong> Make sure port 3001 is not in use</li>
+                <li><strong>Review Console:</strong> Check the terminal/command prompt for error details</li>
+                <li><strong>System Check:</strong> Run <code>npm run doctor</code> for diagnostics</li>
+            </ol>
+        </div>
+        
+        <button class="retry-button" onclick="retryConnection()">
+            🔄 Retry Connection
+        </button>
+        
+        <div class="technical-info">
+            <p><strong>Technical Status:</strong></p>
+            <p>Backend server failed to respond within timeout period</p>
+            <p>Expected endpoint: http://localhost:3001/api/health</p>
+            <p>If this problem persists, check the console for detailed error messages</p>
+        </div>
+    </div>
+
+    <script>
+        function retryConnection() {
+            const button = document.querySelector('.retry-button');
+            button.textContent = '🔄 Attempting Reconnection...';
+            button.disabled = true;
+            
+            // Try to reload the main application
+            setTimeout(() => {
+                window.location.href = 'http://localhost:3001';
+            }, 2000);
+            
+            // If that fails, reload this page after a delay
+            setTimeout(() => {
+                if (button.disabled) {
+                    button.textContent = '🔄 Retry Connection';
+                    button.disabled = false;
+                }
+            }, 10000);
+        }
+        
+        // Auto-retry every 30 seconds
+        setInterval(() => {
+            console.log('Auto-checking server status...');
+            fetch('http://localhost:3001/api/health')
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Server is back online! Redirecting...');
+                        window.location.href = 'http://localhost:3001';
+                    }
+                })
+                .catch(error => {
+                    console.log('Server still offline:', error.message);
+                });
+        }, 30000);
+        
+        // Show additional info if running in Electron
+        if (window.electronAPI) {
+            document.querySelector('.technical-info').innerHTML += `
+                <p><strong>Platform:</strong> ${window.electronAPI.getPlatform()}</p>
+                <p><strong>App Version:</strong> ${window.electronAPI.getAppVersion()}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
